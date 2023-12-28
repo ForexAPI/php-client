@@ -27,12 +27,11 @@ class PsrHttpAdapter implements HttpAdapter
         $request = $request
             ->withHeader('x-auth-token', $apiKey)
             ->withHeader('accept', 'application/json')
-            ->withHeader('user-agent', ForexAPIClient::NAME)
+            ->withHeader('user-agent', 'ForexAPI/PHP-Client')
         ;
 
         $response = $this->client->sendRequest($request);
-
-        $raw = $response->getBody()->getContents();
+        $raw = (string) $response->getBody();
         $data = json_decode($raw, true, 512, \JSON_THROW_ON_ERROR);
 
         if ($response->getStatusCode() >= 400 && $response->getStatusCode() < 500) {

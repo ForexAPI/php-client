@@ -4,25 +4,22 @@ declare(strict_types=1);
 
 namespace ForexAPI\Client;
 
-class ConversionResult
+class ExchangeRate
 {
     private string $from;
     private string $to;
-    private float $amount;
-    private float $result;
     private int $timestamp;
+    private float $rate;
 
     public function __construct(
         string $from,
         string $to,
-        float $amount,
-        float $result,
+        float $rate,
         int $timestamp
     ) {
         $this->from = $from;
         $this->to = $to;
-        $this->amount = $amount;
-        $this->result = $result;
+        $this->rate = $rate;
         $this->timestamp = $timestamp;
     }
 
@@ -36,14 +33,9 @@ class ConversionResult
         return $this->to;
     }
 
-    public function getAmount(): float
+    public function getRate(): float
     {
-        return $this->amount;
-    }
-
-    public function getResult(): float
-    {
-        return $this->result;
+        return $this->rate;
     }
 
     public function getTimestamp(): int

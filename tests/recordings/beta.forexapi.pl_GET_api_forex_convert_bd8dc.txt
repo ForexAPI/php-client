@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Thu, 28 Dec 2023 18:31:52 GMT
+Content-Type: application/json
+Content-Length: 99
+Connection: keep-alive
+Cache-Control: no-cache, private
+x-robots-tag: noindex
+Server: cloudflare
+
+{"from":"USD","amount":100.0,"results":{"EUR":90.4282,"GBP":78.63},"timestamp":1703788312,"cost":2}

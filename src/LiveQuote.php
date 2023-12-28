@@ -12,7 +12,6 @@ class LiveQuote
     private float $ask;
     private float $mid;
     private int $timestamp;
-    private int $cost;
 
     public function __construct(
         string $base,
@@ -20,8 +19,7 @@ class LiveQuote
         float $bid,
         float $ask,
         float $mid,
-        int $timestamp,
-        int $cost
+        int $timestamp
     ) {
         $this->base = $base;
         $this->counter = $counter;
@@ -29,7 +27,6 @@ class LiveQuote
         $this->ask = $ask;
         $this->mid = $mid;
         $this->timestamp = $timestamp;
-        $this->cost = $cost;
     }
 
     public function getBase(): string
@@ -60,10 +57,5 @@ class LiveQuote
     public function getTimestamp(): int
     {
         return $this->timestamp;
-    }
-
-    public function getCost(): int
-    {
-        return $this->cost;
     }
 }

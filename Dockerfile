@@ -24,4 +24,7 @@ RUN mkdir -p /.composer/cache
 RUN chmod -R 777 $COMPOSER_HOME
 COPY --from=composer/composer:2-bin --link /composer /usr/bin/composer
 
+RUN mkdir -p "/opt/phpstorm-coverage" && \
+    chmod a+rw "/opt/phpstorm-coverage"
+
 CMD ["php-fpm"]

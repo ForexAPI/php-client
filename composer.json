@@ -1,6 +1,15 @@
 {
     "name": "forexapi/client",
-    "description": "PHP client to consume the ForexAPI",
+    "description": "Forex API Client",
+    "keywords": [
+        "forex",
+        "api",
+        "client",
+        "exchange",
+        "rates",
+        "currency",
+        "converter"
+    ],
     "type": "library",
     "license": "MIT",
     "autoload": {

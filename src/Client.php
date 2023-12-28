@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace ForexAPI\Client;
 
-class Client
+/**
+ * @internal Use factory or DI container instead
+ */
+class Client implements ForexAPIClient
 {
     public const BASE_URI = 'https://beta.forexapi.pl/api/';
     public const ENDPOINT_LIVE = 'forex/live';
     public const ENDPOINT_CONVERT = 'forex/convert';
+    public const ENDPOINT_MARKET_STATUS = 'forex/market-status';
+    public const ENDPOINT_USAGE = 'usage';
 
     private string $apiKey;
     private string $baseUri;
@@ -21,9 +26,11 @@ class Client
         $this->httpClient = $httpClient ?? new PsrHttpAdapter();
     }
 
-    /**
-     * @return array<LiveQuote>
-     */
+    public function getLiveQuote(string $baseCurrency, string $counterCurrency, int $precision = 4): LiveQuote
+    {
+        return $this->getLiveQuotes($baseCurrency, [$counterCurrency], $precision)[0];
+    }
+
     public function getLiveQuotes(string $baseCurrency, array $counterCurrencies, int $precision = 4): array
     {
         $data = $this->get(self::ENDPOINT_LIVE, [
@@ -42,33 +49,53 @@ class Client
                 $quote['ask'],
                 $quote['mid'],
                 $quote['timestamp'],
-                $data['cost'],
             );
         }
 
         return $quotes;
     }
 
-    public function getCurrencyRates(string $baseCurrency, array $counterCurrencies): array
+    public function getExchangeRate(string $baseCurrency, string $counterCurrency): ExchangeRate
     {
+        return $this->getExchangeRates($baseCurrency, [$counterCurrency])[0];
     }
 
-    /**
-     * @return array<ConversionResult>
-     */
-    public function convert(string $baseCurrency, array $counterCurrencies, float $amount): array
+    public function getExchangeRates(string $baseCurrency, array $counterCurrencies, int $precision = 4): array
+    {
+        $conversions = $this->convertMany($baseCurrency, $counterCurrencies, 1.0, $precision);
+
+        $exchangeRates = [];
+        foreach ($conversions as $conversion) {
+            $exchangeRates[] = new ExchangeRate(
+                $conversion->getFrom(),
+                $conversion->getTo(),
+                $conversion->getResult(),
+                $conversion->getTimestamp(),
+            );
+        }
+
+        return $exchangeRates;
+    }
+
+    public function convert(string $baseCurrency, string $counterCurrency, float $amount, int $precision = 4): ConversionResult
+    {
+        return $this->convertMany($baseCurrency, [$counterCurrency], $amount, $precision)[0];
+    }
+
+    public function convertMany(string $baseCurrency, array $counterCurrencies, float $amount, int $precision = 4): array
     {
         $data = $this->get(self::ENDPOINT_CONVERT, [
             'from' => $baseCurrency,
             'to' => implode(',', $counterCurrencies),
             'amount' => $amount,
+            'precision' => $precision,
         ]);
 
         $results = [];
-        foreach ($data['results'] as $to => $result) {
+        foreach ($data['results'] as $counter => $result) {
             $results[] = new ConversionResult(
-                $result['from'],
-                $to,
+                $data['from'],
+                $counter,
                 $data['amount'],
                 $result,
                 $data['timestamp'],
@@ -78,8 +105,25 @@ class Client
         return $results;
     }
 
-    public function convertMultiple(string $baseCurrency, array $counterCurrencies, float $amount): array
+    public function getUsage(): UsageQuota
     {
+        $data = $this->get(self::ENDPOINT_USAGE, []);
+
+        return new UsageQuota(
+            $data['plan'],
+            $data['used'],
+            $data['limit'],
+            $data['remaining'],
+        );
+    }
+
+    public function getForexMarketStatus(): ForexMarketStatus
+    {
+        $data = $this->get(self::ENDPOINT_MARKET_STATUS, []);
+
+        return new ForexMarketStatus(
+            $data['is_market_open'],
+        );
     }
 
     private function get(string $endpoint, array $query): array

@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Thu, 28 Dec 2023 18:31:51 GMT
+Content-Type: application/json
+Content-Length: 244
+Connection: keep-alive
+Cache-Control: no-cache, private
+x-robots-tag: noindex
+Server: cloudflare
+
+{"base":"USD","quotes":{"EUR":{"base":"USD","counter":"EUR","bid":0.90424089,"ask":0.90432266,"mid":0.90428178,"timestamp":1703788261},"GBP":{"base":"USD","counter":"GBP","bid":0.7863,"ask":0.7863,"mid":0.7863,"timestamp":1703788260}},"cost":2}
