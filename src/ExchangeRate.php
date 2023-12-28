@@ -4,23 +4,14 @@ declare(strict_types=1);
 
 namespace ForexAPI\Client;
 
-class ExchangeRate
+readonly class ExchangeRate
 {
-    private string $from;
-    private string $to;
-    private int $timestamp;
-    private float $rate;
-
     public function __construct(
-        string $from,
-        string $to,
-        float $rate,
-        int $timestamp
+        private string $from,
+        private string $to,
+        private float $rate,
+        private int $timestamp
     ) {
-        $this->from = $from;
-        $this->to = $to;
-        $this->rate = $rate;
-        $this->timestamp = $timestamp;
     }
 
     public function getFrom(): string

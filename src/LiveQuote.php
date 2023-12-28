@@ -4,29 +4,16 @@ declare(strict_types=1);
 
 namespace ForexAPI\Client;
 
-class LiveQuote
+readonly class LiveQuote
 {
-    private string $base;
-    private string $counter;
-    private float $bid;
-    private float $ask;
-    private float $mid;
-    private int $timestamp;
-
     public function __construct(
-        string $base,
-        string $counter,
-        float $bid,
-        float $ask,
-        float $mid,
-        int $timestamp
+        private string $base,
+        private string $counter,
+        private float $bid,
+        private float $ask,
+        private float $mid,
+        private int $timestamp
     ) {
-        $this->base = $base;
-        $this->counter = $counter;
-        $this->bid = $bid;
-        $this->ask = $ask;
-        $this->mid = $mid;
-        $this->timestamp = $timestamp;
     }
 
     public function getBase(): string

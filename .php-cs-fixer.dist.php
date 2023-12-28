@@ -8,6 +8,10 @@ $finder = (new PhpCsFixer\Finder())
 return (new PhpCsFixer\Config())
     ->setRules([
         '@Symfony' => true,
+        '@PHP82Migration' => true,
+        '@PHP81Migration' => true,
+        '@PHP80Migration' => true,
+        '@PHP80Migration:risky' => true,
         '@PHP74Migration' => true,
         '@PHP74Migration:risky' => true,
         '@Symfony:risky' => true,

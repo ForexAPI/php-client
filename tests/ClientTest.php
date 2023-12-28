@@ -34,7 +34,8 @@ class ClientTest extends TestCase
         $replay = new ReplayPlugin($namingStrategy, $recorder, false);
         $httpClient = new PluginClient(Psr18ClientDiscovery::find(), [$replay, $record]);
 
-        $apikey = '1C6Zj4cB7pTxidWugZHXof';
+        // If you want to create recordings, you need to set your API key here. Remember to remove it before committing!
+        $apikey = 'INSERT-YOUR-API-KEY-HERE';
         $adapter = new PsrHttpAdapter($httpClient);
         $this->client = new Client($apikey, Client::BASE_URI, $adapter);
     }

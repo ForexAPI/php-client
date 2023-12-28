@@ -16,6 +16,8 @@ interface ForexAPIClient
      * Get live quotes for given base currency and counter currencies.
      * This data includes bid, ask and mid-prices.
      *
+     * @param array<string> $counterCurrencies
+     *
      * @return array<LiveQuote>
      */
     public function getLiveQuotes(string $baseCurrency, array $counterCurrencies, int $precision = 4): array;
@@ -29,6 +31,8 @@ interface ForexAPIClient
     /**
      * Get multiple currency rates at once for given base currency and counter currencies.
      * This data consists of a mid-price only.
+     *
+     * @param array<string> $counterCurrencies
      *
      * @return array<ExchangeRate>
      */
@@ -44,7 +48,9 @@ interface ForexAPIClient
      * Convert given amount from base currency to multiple counter currencies and return the results.
      * The API will use the half-up rounding method.
      *
-     * @return array{string, float}
+     * @param array<string> $counterCurrencies
+     *
+     * @return array<ConversionResult>
      */
     public function convertMany(string $baseCurrency, array $counterCurrencies, float $amount, int $precision = 4): array;
 

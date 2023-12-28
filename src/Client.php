@@ -9,21 +9,17 @@ namespace ForexAPI\Client;
  */
 class Client implements ForexAPIClient
 {
-    public const BASE_URI = 'https://beta.forexapi.pl/api/';
-    public const ENDPOINT_LIVE = 'forex/live';
-    public const ENDPOINT_CONVERT = 'forex/convert';
-    public const ENDPOINT_MARKET_STATUS = 'forex/market-status';
-    public const ENDPOINT_USAGE = 'usage';
+    public const string BASE_URI = 'https://beta.forexapi.pl/api/';
+    public const string ENDPOINT_LIVE = 'forex/live';
+    public const string ENDPOINT_CONVERT = 'forex/convert';
+    public const string ENDPOINT_MARKET_STATUS = 'forex/market-status';
+    public const string ENDPOINT_USAGE = 'usage';
 
-    private string $apiKey;
-    private string $baseUri;
-    private ?HttpAdapter $httpClient;
-
-    public function __construct(string $apiKey, string $baseUri = self::BASE_URI, HttpAdapter $httpClient = null)
-    {
-        $this->apiKey = $apiKey;
-        $this->baseUri = $baseUri;
-        $this->httpClient = $httpClient ?? new PsrHttpAdapter();
+    public function __construct(
+        private readonly string $apiKey,
+        private readonly string $baseUri = self::BASE_URI,
+        private readonly HttpAdapter $httpAdapter = new PsrHttpAdapter()
+    ) {
     }
 
     public function getLiveQuote(string $baseCurrency, string $counterCurrency, int $precision = 4): LiveQuote
@@ -94,11 +90,11 @@ class Client implements ForexAPIClient
         $results = [];
         foreach ($data['results'] as $counter => $result) {
             $results[] = new ConversionResult(
-                $data['from'],
-                $counter,
-                $data['amount'],
-                $result,
-                $data['timestamp'],
+                from: $data['from'],
+                to: $counter,
+                amount: $data['amount'],
+                result: $result,
+                timestamp: $data['timestamp'],
             );
         }
 
@@ -110,10 +106,10 @@ class Client implements ForexAPIClient
         $data = $this->get(self::ENDPOINT_USAGE, []);
 
         return new UsageQuota(
-            $data['plan'],
-            $data['used'],
-            $data['limit'],
-            $data['remaining'],
+            plan: $data['plan'],
+            used: $data['used'],
+            limit: $data['limit'],
+            remaining: $data['remaining'],
         );
     }
 
@@ -122,15 +118,23 @@ class Client implements ForexAPIClient
         $data = $this->get(self::ENDPOINT_MARKET_STATUS, []);
 
         return new ForexMarketStatus(
-            $data['is_market_open'],
+            isOpen: $data['is_market_open'],
         );
     }
 
+    /**
+     * @param array<string, float|int|string> $query
+     *
+     * @return array<string, mixed>
+     */
     private function get(string $endpoint, array $query): array
     {
-        return $this->httpClient->get($this->buildUrl($endpoint, $query), $this->apiKey);
+        return $this->httpAdapter->get($this->buildUrl($endpoint, $query), $this->apiKey);
     }
 
+    /**
+     * @param array<string, float|int|string> $query
+     */
     private function buildUrl(string $endpoint, array $query): string
     {
         return trim($this->baseUri, '/').'/'.$endpoint.'?'.http_build_query($query);

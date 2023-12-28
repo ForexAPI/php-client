@@ -4,26 +4,15 @@ declare(strict_types=1);
 
 namespace ForexAPI\Client;
 
-class ConversionResult
+readonly class ConversionResult
 {
-    private string $from;
-    private string $to;
-    private float $amount;
-    private float $result;
-    private int $timestamp;
-
     public function __construct(
-        string $from,
-        string $to,
-        float $amount,
-        float $result,
-        int $timestamp
+        private string $from,
+        private string $to,
+        private float $amount,
+        private float $result,
+        private int $timestamp
     ) {
-        $this->from = $from;
-        $this->to = $to;
-        $this->amount = $amount;
-        $this->result = $result;
-        $this->timestamp = $timestamp;
     }
 
     public function getFrom(): string
