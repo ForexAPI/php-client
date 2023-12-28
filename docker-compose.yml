@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  php:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - .:/app
+    environment:
+      XDEBUG_MODE: ${XDEBUG_MODE:-debug,coverage}
+    user: ${DOCKER_USER_ID:-1000}:${DOCKER_GROUP_ID:-1000}
