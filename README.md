@@ -1,6 +1,8 @@
 # ForexAPI PHP Client
 
-This is a PHP client for the ForexAPI. It provides an easy-to-use interface for interacting with the ForexAPI's endpoints.
+This is a PHP client for the ForexAPI. It provides an easy-to-use interface for interacting with the ForexAPI's endpoints.  
+The ForexAPI offers a free plan and provides foreign exchange rates and currency conversion. [Get a free API key](https://forexapi.eu/).  
+The API documentation can be found at [https://forexapi.eu/en/docs](https://forexapi.eu/en/docs).  
 
 ## Requirements
 
