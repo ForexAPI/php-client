@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForexAPI\Client;
 
 use Http\Client\Curl\Client as CurlClient;

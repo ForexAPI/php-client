@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForexAPI\Client;
 
 use ForexAPI\Client\Exception\ClientException;
@@ -31,9 +33,9 @@ class PsrHttpAdapter implements HttpAdapter
         $response = $this->client->sendRequest($request);
 
         $raw = $response->getBody()->getContents();
-        $data = json_decode($raw, true, 512, JSON_THROW_ON_ERROR);
+        $data = json_decode($raw, true, 512, \JSON_THROW_ON_ERROR);
 
-        if($response->getStatusCode() >= 400 && $response->getStatusCode() < 500) {
+        if ($response->getStatusCode() >= 400 && $response->getStatusCode() < 500) {
             throw new ClientException($data['error'] ?? 'Unknown client error');
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForexAPI\Client;
 
 class ConversionResult
@@ -10,7 +12,6 @@ class ConversionResult
         float $amount,
         float $result,
         int $timestamp
-    )
-    {
+    ) {
     }
 }

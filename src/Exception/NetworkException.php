@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForexAPI\Client\Exception;
 
-class NetworkException extends \RuntimeException implements ForexAPIException
-{
+use RuntimeException;
 
+class NetworkException extends RuntimeException implements ForexAPIException
+{
 }

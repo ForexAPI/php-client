@@ -1,24 +1,24 @@
 <?php
 
-namespace ForexAPI\Client;
+declare(strict_types=1);
 
-use ForexAPI\Client\HttpClient\FileGetContents;
+namespace ForexAPI\Client;
 
 class Client
 {
-    const BASE_URI = 'https://beta.forexapi.pl/api/';
-    const ENDPOINT_LIVE = 'forex/live';
-    const ENDPOINT_CONVERT = 'forex/convert';
+    public const BASE_URI = 'https://beta.forexapi.pl/api/';
+    public const ENDPOINT_LIVE = 'forex/live';
+    public const ENDPOINT_CONVERT = 'forex/convert';
 
     private string $apiKey;
     private string $baseUri;
     private ?HttpAdapter $httpClient;
 
-    public function __construct(string $apiKey, string $baseUri = self::BASE_URI, ?HttpAdapter $httpClient = null)
+    public function __construct(string $apiKey, string $baseUri = self::BASE_URI, HttpAdapter $httpClient = null)
     {
         $this->apiKey = $apiKey;
         $this->baseUri = $baseUri;
-        $this->httpClient = $httpClient ?? new FileGetContents();
+        $this->httpClient = $httpClient ?? new PsrHttpAdapter();
     }
 
     /**
@@ -42,7 +42,7 @@ class Client
                 $quote['ask'],
                 $quote['mid'],
                 $quote['timestamp'],
-                $quote['cost'],
+                $data['cost'],
             );
         }
 
@@ -51,7 +51,6 @@ class Client
 
     public function getCurrencyRates(string $baseCurrency, array $counterCurrencies): array
     {
-
     }
 
     /**
@@ -81,7 +80,6 @@ class Client
 
     public function convertMultiple(string $baseCurrency, array $counterCurrencies, float $amount): array
     {
-
     }
 
     private function get(string $endpoint, array $query): array
@@ -91,6 +89,6 @@ class Client
 
     private function buildUrl(string $endpoint, array $query): string
     {
-        return trim($this->baseUri, '/') . '/' . $endpoint . '?' . http_build_query($query);
+        return trim($this->baseUri, '/').'/'.$endpoint.'?'.http_build_query($query);
     }
 }

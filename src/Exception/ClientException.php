@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForexAPI\Client\Exception;
 
-class ClientException extends \InvalidArgumentException implements ForexAPIException
-{
+use InvalidArgumentException;
 
+class ClientException extends InvalidArgumentException implements ForexAPIException
+{
 }
