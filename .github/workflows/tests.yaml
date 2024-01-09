@@ -40,7 +40,7 @@ jobs:
         run: php ./vendor/bin/phpunit
 
       - name: PHPStan
-        run: php ./vendor/bin/phpstan analyse --configuration phpstan.dist.neon --no-progress --memory-limit 1G
+        run: php ./vendor/bin/phpstan analyse --configuration ./phpstan.neon.dist --no-progress
 
       - name: PHP-CS-Fixer
         run: PHP_CS_FIXER_IGNORE_ENV=1 php ./vendor/bin/php-cs-fixer fix --config=./.php-cs-fixer.dist.php --allow-risky=yes --dry-run --diff
