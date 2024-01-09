@@ -1,11 +1,9 @@
 HTTP/1.1 200 OK
-Date: Thu, 28 Dec 2023 18:31:51 GMT
+Date: Tue, 09 Jan 2024 00:19:53 GMT
 Content-Type: application/json
-Content-Length: 23
+Transfer-Encoding: chunked
 Connection: keep-alive
 Cache-Control: no-cache, private
-vary: Accept-Language
-x-robots-tag: noindex
 Server: cloudflare
 
-{"is_market_open":true}
+{"plan":"basic","used":104,"limit":10000,"remaining":9896}

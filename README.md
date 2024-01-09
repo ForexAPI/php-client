@@ -1,12 +1,17 @@
+[![logo.png](res/banner.png)](https://forexapi.eu)
+
 # ForexAPI PHP Client
 
-This is a PHP client for the ForexAPI. It provides an easy-to-use interface for interacting with the ForexAPI's endpoints.  
-The ForexAPI offers a free plan and provides foreign exchange rates and currency conversion. [Get a free API key](https://forexapi.eu/).  
-The API documentation can be found at [https://forexapi.eu/en/docs](https://forexapi.eu/en/docs).  
+This is a PHP client for the **ForexAPI**. It provides an easy-to-use interface for interacting with the API's endpoints. 
+The **ForexAPI** offers a free plan and provides foreign exchange rates and currency conversion.  
+The API documentation can be found at [https://forexapi.eu/en/docs](https://forexapi.eu/en/docs).
+
+[Get a free API key](https://forexapi.eu/)
 
 ## Requirements
 
 - PHP 7.4 or higher
+- json extension
 - Composer
 
 ## Installation
@@ -17,6 +22,13 @@ Use Composer to install the ForexAPI PHP Client:
 composer require forexapi/client
 ```
 
+This package does not come with a Http Client. [You can use any PSR-18 compatible client](https://packagist.org/providers/psr/http-client-implementation).  
+If you have multiple Http Clients installed, [you can specify which one to use](https://github.com/php-http/discovery?tab=readme-ov-file#usage-as-a-library-user).
+
+```bash
+composer require guzzlehttp/guzzle forexapi/client
+```
+
 ## Usage
 
 Create an instance of the `Client` class directly with your API key:
@@ -24,8 +36,7 @@ Create an instance of the `Client` class directly with your API key:
 ```php
 use ForexAPI\Client\Client;
 
-$apiKey = 'your-api-key';
-$client = new Client($apiKey);
+$client = new Client('your-api-key');
 ```
 
 Create new instance using the `ForexAPI\Client\ForexAPIClientBuilder` class:
@@ -106,7 +117,7 @@ echo $conversion->getTimestamp(); // Timestamp
 If you would like to convert to multiple currencies at once, you can use the `convertMany` method:
 
 ```php
-$conversions = $client->convertMany('USD', 'PLN', [100.0, 200.0, 300.0]);
+$conversions = $client->convertMany('USD', ['PLN', 'EUR', 'GBP'], 100.0);
 ```
 
 ## Testing
