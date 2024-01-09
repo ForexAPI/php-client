@@ -10,8 +10,8 @@ The API documentation can be found at [https://forexapi.eu/en/docs](https://fore
 
 ## Requirements
 
-- PHP 7.4 (branch 1.x)
-- PHP 8.3 (branch 2.x)
+- PHP 7.4 or higher
+- json extension
 - Composer
 
 ## Installation
@@ -20,14 +20,6 @@ Use Composer to install the ForexAPI PHP Client:
 
 ```bash
 composer require forexapi/client
-```
-
-Version 2.x of this library requires PHP 8.3 or higher. If you need to use PHP 7.4, install version 1.x.  
-Both versions are supported and maintained.
-
-
-```bash
-composer require forexapi/client:^1.0
 ```
 
 This package does not come with a Http Client. [You can use any PSR-18 compatible client](https://packagist.org/providers/psr/http-client-implementation).  
@@ -44,8 +36,7 @@ Create an instance of the `Client` class directly with your API key:
 ```php
 use ForexAPI\Client\Client;
 
-$apiKey = 'your-api-key';
-$client = new Client($apiKey);
+$client = new Client('your-api-key');
 ```
 
 Create new instance using the `ForexAPI\Client\ForexAPIClientBuilder` class:
