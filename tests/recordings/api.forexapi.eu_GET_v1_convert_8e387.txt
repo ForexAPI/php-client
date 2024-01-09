@@ -1,0 +1,9 @@
+HTTP/1.1 400 Bad Request
+Date: Tue, 09 Jan 2024 00:19:54 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, private
+Server: cloudflare
+
+{"error":"This value is not a valid currency.","path":"to[0]"}

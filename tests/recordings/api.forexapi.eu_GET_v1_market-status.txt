@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Date: Tue, 09 Jan 2024 00:19:53 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, private
+Server: cloudflare
+
+{"is_market_open":true}

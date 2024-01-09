@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ForexAPI\Client;
 
+use ForexAPI\Client\Exception\ClientException;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 
@@ -13,7 +14,7 @@ use Psr\Http\Message\RequestFactoryInterface;
 class ForexAPIClientBuilder
 {
     private string $baseUri;
-    private ?HttpAdapter $httpAdapter = null;
+    private HttpAdapter $httpAdapter;
     private ?string $apiKey = null;
 
     private ?ClientInterface $psr18Client = null;
@@ -60,7 +61,7 @@ class ForexAPIClientBuilder
         return $this;
     }
 
-    public function build(string $apiKey): ForexAPIClient
+    public function build(): ForexAPIClient
     {
         if ($this->psr18Client || $this->psr17Factory) {
             $this->httpAdapter = new PsrHttpAdapter(
@@ -69,6 +70,10 @@ class ForexAPIClientBuilder
             );
         }
 
-        return new Client($apiKey, $this->baseUri, $this->httpAdapter);
+        if ($this->apiKey === null) {
+            throw new ClientException('API key is required');
+        }
+
+        return new Client($this->apiKey, $this->baseUri, $this->httpAdapter);
     }
 }

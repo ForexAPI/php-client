@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace ForexAPI\Tests\Client;
 
 use ForexAPI\Client\Client;
+use ForexAPI\Client\Exception\ClientException;
+use ForexAPI\Client\ForexAPIClient;
+use ForexAPI\Client\HttpAdapter;
 use ForexAPI\Client\PsrHttpAdapter;
 use Http\Client\Common\PluginClient;
+use Http\Client\Curl\Client as CurlClient;
 use Http\Client\Plugin\Vcr\NamingStrategy\PathNamingStrategy;
 use Http\Client\Plugin\Vcr\Recorder\FilesystemRecorder;
 use Http\Client\Plugin\Vcr\RecordPlugin;
 use Http\Client\Plugin\Vcr\ReplayPlugin;
-use Http\Discovery\Psr18ClientDiscovery;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -19,24 +22,11 @@ use PHPUnit\Framework\TestCase;
  */
 class ClientTest extends TestCase
 {
-    private Client $client;
+    private ForexAPIClient $client;
 
     protected function setUp(): void
     {
-        parent::setUp();
-
-        $namingStrategy = new PathNamingStrategy();
-        $recorder = new FilesystemRecorder(__DIR__.'/recordings', null, [
-            '#(CF-Cache-Status|CF-RAY|Report-To|NEL|alt-svc|x-debug-token|x-debug-token-link):.*\n#' => '',
-        ]);
-
-        $record = new RecordPlugin($namingStrategy, $recorder);
-        $replay = new ReplayPlugin($namingStrategy, $recorder, false);
-        $httpClient = new PluginClient(Psr18ClientDiscovery::find(), [$replay, $record]);
-
-        $apikey = '1C6Zj4cB7pTxidWugZHXof';
-        $adapter = new PsrHttpAdapter($httpClient);
-        $this->client = new Client($apikey, Client::BASE_URI, $adapter);
+        $this->client = $this->createClient();
     }
 
     public function test_get_live_quote(): void
@@ -125,5 +115,34 @@ class ClientTest extends TestCase
             $this->assertIsFloat($conversion->getResult());
             $this->assertIsInt($conversion->getTimestamp());
         }
+    }
+
+    public function test_convert_using_invalid_arguments(): void
+    {
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessage('This value is not a valid currency.');
+
+        $this->client->convert('USD', 'ASDf', 100);
+    }
+
+    private function createClient(HttpAdapter $adapter = null): ForexAPIClient
+    {
+        // Either use env variables or create your own phpunit.xml file and set FOREXAPI_APIKEY env variable there.
+        // This is only needed if you would like to record new API responses.
+        $apikey = $_ENV['FOREXAPI_APIKEY'] ?? 'none';
+
+        $namingStrategy = new PathNamingStrategy();
+        $recorder = new FilesystemRecorder(__DIR__.'/recordings', null, [
+            '#(CF-Cache-Status|(X|x)\-.*|CF-RAY|Report-To|NEL|alt-svc):.*\n#' => '',
+        ]);
+
+        if ($adapter === null) {
+            $record = new RecordPlugin($namingStrategy, $recorder);
+            $replay = new ReplayPlugin($namingStrategy, $recorder, false);
+            $httpClient = new PluginClient(new CurlClient(), [$replay, $record]);
+            $adapter = new PsrHttpAdapter($httpClient);
+        }
+
+        return new Client($apikey, Client::BASE_URI, $adapter);
     }
 }

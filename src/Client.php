@@ -9,10 +9,10 @@ namespace ForexAPI\Client;
  */
 class Client implements ForexAPIClient
 {
-    public const BASE_URI = 'https://beta.forexapi.pl/api/';
-    public const ENDPOINT_LIVE = 'forex/live';
-    public const ENDPOINT_CONVERT = 'forex/convert';
-    public const ENDPOINT_MARKET_STATUS = 'forex/market-status';
+    public const BASE_URI = 'https://api.forexapi.eu/v1';
+    public const ENDPOINT_LIVE = 'live';
+    public const ENDPOINT_CONVERT = 'convert';
+    public const ENDPOINT_MARKET_STATUS = 'market-status';
     public const ENDPOINT_USAGE = 'usage';
 
     private string $apiKey;
@@ -126,11 +126,20 @@ class Client implements ForexAPIClient
         );
     }
 
+    /**
+     * @param array<string, float|int|string> $query
+     *
+     * @return array<string, mixed>
+     */
     private function get(string $endpoint, array $query): array
     {
+        // @phpstan-ignore-next-line
         return $this->httpClient->get($this->buildUrl($endpoint, $query), $this->apiKey);
     }
 
+    /**
+     * @param array<string, float|int|string> $query
+     */
     private function buildUrl(string $endpoint, array $query): string
     {
         return trim($this->baseUri, '/').'/'.$endpoint.'?'.http_build_query($query);
