@@ -1,6 +1,7 @@
 {
     "name": "forexapi/client",
-    "description": "Forex API Client",
+    "homepage": "https://forexapi.eu",
+    "description": "Library for consuming the ForexAPI. Ideal for those in the financial or e-commerce sectors, this client simplifies the process of incorporating real-time forex data into various PHP-based projects.",
     "keywords": [
         "forex",
         "api",
@@ -8,10 +9,24 @@
         "exchange",
         "rates",
         "currency",
-        "converter"
+        "converter",
+        "exchange",
+        "currency",
+        "finance"
     ],
     "type": "library",
     "license": "MIT",
+    "support": {
+        "email": "support@forexapi.eu",
+        "docs": "https://forexapi.eu/en/docs",
+        "issues": "https://github.com/ForexAPI/php-client/issues"
+    },
+    "funding": [
+        {
+            "type": "other",
+            "url": "https://forexapi.eu/pl/pricing"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "ForexAPI\\Client\\": "src/"
@@ -47,6 +62,22 @@
         "php-http/curl-client": "^2.3",
         "friendsofphp/php-cs-fixer": "^3.4",
         "phpunit/phpunit": "^8.5"
+    },
+    "archive": {
+        "exclude": [
+            "/*",
+            "/.phpunit.cache",
+            "/.phpunit.result.cache",
+            "/.php-cs-fixer.cache",
+            "/.php-cs-fixer.dist.php",
+            "/.github",
+            "/.idea",
+            "!/src",
+            "!/composer.json",
+            "!/composer.lock",
+            "!/README.md",
+            "!/LICENSE"
+        ]
     },
     "config": {
         "allow-plugins": {
