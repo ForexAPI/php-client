@@ -1,6 +1,11 @@
 [![logo.png](res/banner.png)](https://forexapi.eu)
 
 # ForexAPI PHP Client
+![example workflow](https://github.com/forexapi/php-client/actions/workflows/tests.yaml/badge.svg)
+[![Latest Stable Version](http://poser.pugx.org/forexapi/client/v)](https://packagist.org/packages/forexapi/client) 
+[![Total Downloads](http://poser.pugx.org/forexapi/client/downloads)](https://packagist.org/packages/forexapi/client) 
+[![License](http://poser.pugx.org/forexapi/client/license)](https://packagist.org/packages/forexapi/client) 
+[![PHP Version Require](http://poser.pugx.org/forexapi/client/require/php)](https://packagist.org/packages/forexapi/client)
 
 This is a PHP client for the **ForexAPI**. It provides an easy-to-use interface for interacting with the API's endpoints. 
 The **ForexAPI** offers a free plan and provides foreign exchange rates and currency conversion.  
