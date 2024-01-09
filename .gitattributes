@@ -1,0 +1,10 @@
+# Exclude everything
+* export-ignore
+
+# Include specific files and directories
+composer.json !export-ignore
+composer.lock !export-ignore
+src !export-ignore
+src/** !export-ignore
+README.md !export-ignore
+LICENSE !export-ignore
