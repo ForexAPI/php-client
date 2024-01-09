@@ -10,7 +10,8 @@ The API documentation can be found at [https://forexapi.eu/en/docs](https://fore
 
 ## Requirements
 
-- PHP 7.4 or higher
+- PHP 7.4 (branch 1.x)
+- PHP 8.3 (branch 2.x)
 - Composer
 
 ## Installation

@@ -9,10 +9,10 @@ namespace ForexAPI\Client;
  */
 class Client implements ForexAPIClient
 {
-    public const string BASE_URI = 'https://beta.forexapi.pl/api/';
-    public const string ENDPOINT_LIVE = 'forex/live';
-    public const string ENDPOINT_CONVERT = 'forex/convert';
-    public const string ENDPOINT_MARKET_STATUS = 'forex/market-status';
+    public const string BASE_URI = 'https://api.forexapi.eu/v1';
+    public const string ENDPOINT_LIVE = 'live';
+    public const string ENDPOINT_CONVERT = 'convert';
+    public const string ENDPOINT_MARKET_STATUS = 'market-status';
     public const string ENDPOINT_USAGE = 'usage';
 
     public function __construct(

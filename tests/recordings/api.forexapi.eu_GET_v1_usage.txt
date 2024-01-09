@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Date: Mon, 08 Jan 2024 23:17:54 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, private
+Server: cloudflare
+
+{"plan":"basic","used":86,"limit":10000,"remaining":9914}

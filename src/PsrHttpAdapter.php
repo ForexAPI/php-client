@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace ForexAPI\Client;
 
 use ForexAPI\Client\Exception\ClientException;
+use ForexAPI\Client\Exception\NetworkException;
 use ForexAPI\Client\Exception\ServerException;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\Psr18ClientDiscovery;
 use JsonException;
 use Psr\Http\Client\ClientExceptionInterface as PsrClientException;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Client\NetworkExceptionInterface as PsrNetworkExceptionInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 
 class PsrHttpAdapter implements HttpAdapter
@@ -28,13 +30,15 @@ class PsrHttpAdapter implements HttpAdapter
     {
         $request = $this->requestFactory->createRequest('GET', $url);
         $request = $request
-            ->withHeader('x-auth-token', $apiKey)
+            ->withHeader('authorization', 'apikey '.$apiKey)
             ->withHeader('accept', 'application/json')
             ->withHeader('user-agent', 'ForexAPI/PHP-Client')
         ;
 
         try {
             $response = $this->client->sendRequest($request);
+        } catch (PsrNetworkExceptionInterface $e) {
+            throw new NetworkException(sprintf('Network exception: %s', $e->getMessage()), 0, $e);
         } catch (PsrClientException $e) {
             throw new ClientException(sprintf('Error while trying to send request: %s', $e->getMessage()), 0, $e);
         }

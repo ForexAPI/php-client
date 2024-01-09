@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace ForexAPI\Client;
 
+/**
+ * ForexAPI client interface.
+ */
 interface ForexAPIClient
 {
     /**

@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Date: Mon, 08 Jan 2024 23:17:55 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, private
+Server: cloudflare
+
+{"from":"USD","amount":100.0,"results":{"EUR":91.3075,"GBP":78.445},"timestamp":1704755875,"cost":2}

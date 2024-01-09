@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Date: Mon, 08 Jan 2024 23:17:54 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, private
+Server: cloudflare
+
+{"base":"USD","quotes":{"EUR":{"base":"USD","counter":"EUR","bid":0.91290853,"ask":0.91324201,"mid":0.91307527,"timestamp":1704755869},"GBP":{"base":"USD","counter":"GBP","bid":0.7844,"ask":0.7845,"mid":0.78445,"timestamp":1704755869}},"cost":2}
