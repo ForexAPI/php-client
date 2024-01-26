@@ -1,9 +1,9 @@
 HTTP/1.1 200 OK
-Date: Tue, 09 Jan 2024 00:19:54 GMT
+Date: Fri, 26 Jan 2024 00:29:46 GMT
 Content-Type: application/json
 Transfer-Encoding: chunked
 Connection: keep-alive
 Cache-Control: no-cache, private
 Server: cloudflare
 
-{"base":"USD","quotes":{"PLN":{"base":"USD","counter":"PLN","bid":3.9554,"ask":3.9584,"mid":3.9569,"timestamp":1704759589}},"cost":1}
+{"base":"USD","quotes":{"PLN":{"base":"USD","counter":"PLN","bid":4.0326,"ask":4.0401,"mid":4.0363,"timestamp":1706228938}},"cost":1}
