@@ -96,8 +96,8 @@ class Client implements ForexAPIClient
             $results[] = new ConversionResult(
                 $data['from'],
                 $counter,
-                $data['amount'],
-                $result,
+                (float) $data['amount'],
+                (float) $result,
                 $data['timestamp'],
             );
         }

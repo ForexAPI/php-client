@@ -1,9 +1,9 @@
 HTTP/1.1 200 OK
-Date: Tue, 09 Jan 2024 00:19:53 GMT
+Date: Fri, 26 Jan 2024 00:29:46 GMT
 Content-Type: application/json
 Transfer-Encoding: chunked
 Connection: keep-alive
 Cache-Control: no-cache, private
 Server: cloudflare
 
-{"plan":"basic","used":104,"limit":10000,"remaining":9896}
+{"plan":"advanced","used":2128,"limit":100000,"remaining":97872}
